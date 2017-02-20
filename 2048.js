@@ -170,7 +170,67 @@ var join = function (next,now,combine) {
    return combine
 }
 
-
+var canMove = function (direction) {
+    //默认为不能移动
+    var bool = 0
+    if(direction == 'left'){
+        for (var i = 0; i < 4; i++) {
+            for(var j = 1;j < 4;j++){
+                var now = parseInt(canvasarray[i][j].innerHTML)
+                var next = parseInt(canvasarray[i][j-1].innerHTML)
+                if(now != 0){
+                    if(next == 0 || next == now){
+                        bool = 1
+                        return bool
+                    }
+                }
+            }
+         }
+        return bool
+    } else if(direction == 'up') {
+          for (var j = 0; j < 4; j++) {
+              for(var i = 1;i < 4;i++){
+                  var now = parseInt(canvasarray[i][j].innerHTML)
+                  var next = parseInt(canvasarray[i-1][j].innerHTML)
+                  if(now != 0){
+                      if(next == 0 || next == now){
+                          bool = 1
+                          return bool
+                      }
+                  }
+              }
+           }
+          return bool
+    } else if(direction == 'right') {
+        for (var i = 0; i < 4; i++) {
+            for(var j = 0;j < 3;j++){
+                var now = parseInt(canvasarray[i][j].innerHTML)
+                var next = parseInt(canvasarray[i][j+1].innerHTML)
+                if(now != 0){
+                    if(next == 0 || next == now){
+                        bool = 1
+                        return bool
+                    }
+                }
+            }
+         }
+        return bool
+    } else if(direction == 'down') {
+        for (var i = 0; i < 3; i++) {
+            for(var j = 0;j < 4;j++){
+                var now = parseInt(canvasarray[i][j].innerHTML)
+                var next = parseInt(canvasarray[i+1][j].innerHTML)
+                if(now != 0){
+                    if(next == 0 || next == now){
+                        bool = 1
+                        return bool
+                    }
+                }
+            }
+         }
+        return bool
+    }
+}
 
 
 
@@ -180,6 +240,11 @@ var move = function (direction) {
     switch(direction){
         case 'left':
         //log('***')
+        //如果能向左移动，就随机产生一个数字
+        //否则不生成数字
+        if(!canMove('left')) {
+              return false
+        }
         for(var i = 0;i < 4;i++){
             var combine = {}
             for(var j = 1;j < 4;j++){
@@ -193,6 +258,9 @@ var move = function (direction) {
             }
         break;
         case 'up':
+        if(!canMove('up')){
+            return false
+        }
         for(var j = 0;j < 4;j++) {
             var combine = {}
             for(var i = 1; i < 4 ; i++) {
@@ -206,6 +274,9 @@ var move = function (direction) {
         }
         break;
         case 'right':
+        if(!canMove('right')){
+            return false
+        }
         for(var i = 0;i < 4;i++){
             var combine = {}
             for(var j = 2; j > -1;j--){
@@ -218,6 +289,9 @@ var move = function (direction) {
         }
         break;
         case 'down':
+        if(!canMove('down')){
+            return false
+        }
         for(var j = 0;j < 4;j++){
             var combine = {}
             for(var i = 2;i > -1;i--){
