@@ -171,7 +171,7 @@ var join = function (next,now,combine) {
 }
 
 var canMove = function (direction) {
-    //默认为不能移动
+    // 默认为不能移动
     var bool = 0
     if(direction == 'left'){
         for (var i = 0; i < 4; i++) {
@@ -234,7 +234,7 @@ var canMove = function (direction) {
 
 
 
-//游戏左右上下移动
+// 游戏左右上下移动
 var move = function (direction) {
 
     switch(direction){
